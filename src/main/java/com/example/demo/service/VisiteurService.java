@@ -30,4 +30,27 @@ public class VisiteurService {
                 .tarifjour(visit.getTarifjour())
                 .build();
     }
+
+    public void ajouterVisiteur(VisiteurDTO visiteurDTO) {
+        Visiteur visiteur = new Visiteur();
+        visiteur.setNom(visiteurDTO.getNom());
+        visiteur.setNbrjour(visiteurDTO.getNbrjour());
+        visiteur.setTarifjour(visiteurDTO.getTarifjour());
+
+        visiteurRepository.save(visiteur); // Sauvegarde dans la base de données
+    }
+
+    public void modifierVisiteur(int id, VisiteurDTO visiteurDTO) {
+        Visiteur visiteur = visiteurRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Visiteur non trouvé"));
+        visiteur.setNom(visiteurDTO.getNom());
+        visiteur.setNbrjour(visiteurDTO.getNbrjour());
+        visiteur.setTarifjour(visiteurDTO.getTarifjour());
+        visiteurRepository.save(visiteur);
+    }
+
+    public void supprimerVisiteur(int id) {
+        visiteurRepository.deleteById(id);
+    }
+
 }
